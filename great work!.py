@@ -6,7 +6,7 @@ data=xlrd.open_workbook("ticket_catalog.xlsx")
 table=data.sheets()[0]
 nrows=table.nrows
 
-drivers = webdriver.Chrome()  # 创建一个edge浏览器对象
+drivers = webdriver.Chrome()  # 创建一个Chrome浏览器对象
 drivers.get("http://www.baiwang.com/cterminal/cterminal/fpcy.html")
 drivers.find_element_by_class_name("money").click()
 a=input()
