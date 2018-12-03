@@ -1,14 +1,28 @@
 import xlrd
+import os
+import shutil
+import re
 from selenium import webdriver
 import time
+import requests
 from selenium.webdriver.common.action_chains import ActionChains
 from selenium.common.exceptions import NoSuchElementException
 data=xlrd.open_workbook("ticket_catalog.xlsx")
 table=data.sheets()[0]
 nrows=table.nrows
 
+filename=table.cell(0,2).value;
+#print (filename)
+os.mkdir(filename)
+
+name=table.cell(0,0).value[4:10]
+#print(name)
+os.makedirs(filename+"\\"+name)
+
+
 drivers = webdriver.Chrome()  # 创建一个Chrome浏览器对象
 drivers.get("http://www.baiwang.com/cterminal/cterminal/fpcy.html")
+time.sleep(2)
 drivers.find_element_by_class_name("money").click()
 a=input()
 drivers.find_element_by_id("in_yzm").send_keys(a)
@@ -16,7 +30,14 @@ element1 = drivers.find_element_by_id("in_bdbh")
 element2 = drivers.find_element_by_id("in_fpje")
 for i in range(0,nrows):
     time.sleep(1)
-    try:
+    u_name=table.cell(i,0).value[4:10]
+    if(u_name!=name):
+       for root, dirs, files in os.walk("C:\\Users\\USERNAME\\Downloads"):
+           for file in files:
+               shutil.move("C:\\Users\\USERNAME\\Downloads\\"+file,filename+"\\"+name)
+       name=u_name
+       os.makedirs(filename+"\\"+name)
+    try: 
             ActionChains(drivers).click(element1).send_keys(table.cell(i,0).value).perform()
             #drivers.find_element_by_xpath("//input[@id='in_bdbh']").send_keys(table.cell(i,0).value)
             ActionChains(drivers).click(element2).send_keys(table.cell(i,1).value).perform()
@@ -38,3 +59,6 @@ for i in range(0,nrows):
         drivers.find_element_by_id("in_fpje").clear()
         time.sleep(2)
         print("Lost one ticket!")
+for root, dirs, files in os.walk("C:\\Users\\USERNAME\\Downloads"):
+    for file in files:
+      shutil.move("C:\\Users\\USERNAME\\Downloads\\"+file,filename+"\\"+name)
