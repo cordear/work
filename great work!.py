@@ -34,9 +34,9 @@ for i in range(0,nrows):
     u_name=table.cell(i,0).value[4:10]
     if(u_name!=name):
        time.sleep(1)
-       for root, dirs, files in os.walk("C:\\Users\\陈果\\Downloads"):
+       for root, dirs, files in os.walk("C:\\Users\\NAME\\Downloads"):
            for file in files:
-               shutil.move("C:\\Users\\陈果\\Downloads\\"+file,filename+"\\"+name)
+               shutil.move("C:\\Users\\NAME\\Downloads\\"+file,filename+"\\"+name)
        name=u_name
        try:
           os.makedirs(filename+"\\"+name)
@@ -65,6 +65,6 @@ for i in range(0,nrows):
         time.sleep(2)
         print("Lost one ticket!")
 time.sleep(1)
-for root, dirs, files in os.walk("C:\\Users\\陈果\\Downloads"):
+for root, dirs, files in os.walk("C:\\Users\\NAME\\Downloads"):
     for file in files:
-      shutil.move("C:\\Users\\陈果\\Downloads\\"+file,filename+"\\"+name)
+      shutil.move("C:\\Users\\NAME\\Downloads\\"+file,filename+"\\"+name)
