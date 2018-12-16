@@ -1,7 +1,6 @@
 import xlrd
 import os
 import shutil
-import re
 from selenium import webdriver
 import time
 import requests
@@ -23,20 +22,26 @@ os.makedirs(filename+"\\"+name)
 drivers = webdriver.Chrome()  # 创建一个Chrome浏览器对象
 drivers.get("http://www.baiwang.com/cterminal/cterminal/fpcy.html")
 time.sleep(2)
+
 drivers.find_element_by_class_name("money").click()
 a=input()
 drivers.find_element_by_id("in_yzm").send_keys(a)
 element1 = drivers.find_element_by_id("in_bdbh")
 element2 = drivers.find_element_by_id("in_fpje")
+
 for i in range(0,nrows):
     time.sleep(1)
     u_name=table.cell(i,0).value[4:10]
     if(u_name!=name):
-       for root, dirs, files in os.walk("C:\\Users\\USERNAME\\Downloads"):
+       time.sleep(1)
+       for root, dirs, files in os.walk("C:\\Users\\陈果\\Downloads"):
            for file in files:
-               shutil.move("C:\\Users\\USERNAME\\Downloads\\"+file,filename+"\\"+name)
+               shutil.move("C:\\Users\\陈果\\Downloads\\"+file,filename+"\\"+name)
        name=u_name
-       os.makedirs(filename+"\\"+name)
+       try:
+          os.makedirs(filename+"\\"+name)
+       except:
+          print(str(filename)+"\\"+str(name)+" 已经存在")
     try: 
             ActionChains(drivers).click(element1).send_keys(table.cell(i,0).value).perform()
             #drivers.find_element_by_xpath("//input[@id='in_bdbh']").send_keys(table.cell(i,0).value)
@@ -59,6 +64,7 @@ for i in range(0,nrows):
         drivers.find_element_by_id("in_fpje").clear()
         time.sleep(2)
         print("Lost one ticket!")
-for root, dirs, files in os.walk("C:\\Users\\USERNAME\\Downloads"):
+time.sleep(1)
+for root, dirs, files in os.walk("C:\\Users\\陈果\\Downloads"):
     for file in files:
-      shutil.move("C:\\Users\\USERNAME\\Downloads\\"+file,filename+"\\"+name)
+      shutil.move("C:\\Users\\陈果\\Downloads\\"+file,filename+"\\"+name)
